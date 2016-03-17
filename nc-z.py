@@ -7,7 +7,7 @@ SCRIPT_NAME = sys.argv[0]
 # python script/lib to replace missing -z parameter to nc.
 #  seems to have gone away in the nc in rev7 rh and clones.
 # Output intended to "fool" bash scripts that formerly used
-#  nc -z [-v] [-t nseconds] <host> <port>
+#  nc -z [-v] [-w nseconds] <host> <port>
 # If you like you can wrapper nc and use this when "-z" prameter
 #  is passed to nc. This ugliness is up to you.
 

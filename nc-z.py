@@ -9,15 +9,13 @@ SCRIPT_NAME = sys.argv[0]
 # Output intended to "fool" bash scripts that formerly used
 #  nc -z [-v] [-t nseconds] <host> <port>
 # If you like you can wrapper nc and use this when "-z" prameter
-#  is past. This ugliness is up to you.
-
-#todo, fix service output ``
+#  is passed to nc. This ugliness is up to you.
 
 def usage():
     ''' Usage function '''
-    print "Usage: " + SCRIPT_NAME + " [-v|--verbose] [-t|--timeout nseconds] \
+    print "Usage: " + SCRIPT_NAME + " [-v|--verbose] [-w|-t|--timeout nseconds] \
  <hostname> <port>"
-    print "example: " + SCRIPT_NAME + " -v localhost 222 -t 2.0"
+    print "example: " + SCRIPT_NAME + " -v localhost 222 -w 2.0"
     sys.exit(2)
 
 def parse_input():
@@ -33,7 +31,8 @@ def parse_input():
             continue
         if arg in ['-v', '-zv', '-vz', '--verbose']:
             v = True
-        elif arg == '-w' or arg == '--timeout':
+        #elif arg == '-w' or arg == '--timeout':
+        elif arg in ['-w', '-t', '--timeout']:
             t = rargs[rargs.index(arg) + 1]
         elif arg != t:
             args.append(arg)
@@ -65,7 +64,7 @@ def ck_socket(host, port, timeout, verbose):
                 sys.exit(0)
         else:
             if verbose:
-                print SCRIPT_NAME + ": connect to host port " + port \
+                print SCRIPT_NAME + ": connect to " + host + " port " + port \
                 + " (tcp) failed: "
                 sys.exit(1)
             else:

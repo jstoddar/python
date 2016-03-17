@@ -31,7 +31,6 @@ def parse_input():
             continue
         if arg in ['-v', '-zv', '-vz', '--verbose']:
             v = True
-        #elif arg == '-w' or arg == '--timeout':
         elif arg in ['-w', '-t', '--timeout']:
             t = rargs[rargs.index(arg) + 1]
         elif arg != t:

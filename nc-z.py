@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-import sys, re, socket
-from contextlib import closing
-SCRIPT_NAME = sys.argv[0]
-# jstoddar at g mail .com
 '''
 nc-z.py: script to check to see if port is open.
 Handy to have where you can't install nc or nmap.
 Output and status largely mimic "nc -z".
 '''
+import sys, re, socket
+from contextlib import closing
+SCRIPT_NAME = sys.argv[0]
+# jstoddar at g mail .com
 # The -z option to nc has annoyingly turned up missing in rhel7 nc
 #  and clone versions.
 # Output intended to "fool" bash scripts that formerly used
@@ -44,7 +44,8 @@ def get_port_service(port):
     regex_out = '*'
     with open("/etc/services") as f:
         for line in f:
-            search_regex = r"(^[a-z]+)(.*)(\s+)" + re.escape(port) + r"(\s+)"
+            search_regex = r"(^[a-z]+)((-[a-z]+)*)(\s+)" \
+             + re.escape(port) + r"(\s+)"
             if re.match(search_regex, line):
                 regex_out = line.split("\t", 1)[0]
         return regex_out

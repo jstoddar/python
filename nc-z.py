@@ -52,16 +52,17 @@ def get_port_service(port):
 def ck_socket(host, port, timeout):
     '''
     Open and check the socket:port.
-    Output strings and exit values close enough to perhaps work
-     with some bash scripts formally using "nc -x to test ports."
-    Note: Returns shell true "0" if connect was successful, not "1".
+    Note: Returns shell true "0" if connect was successful, if not, "1".
     '''
     with closing(socket.socket(socket.AF_INET, socket.SOCK_STREAM)) as sock:
         sock.settimeout(float(timeout))
         return sock.connect_ex((host, int(port)))
 
 def verbose_output(sock_status, host, port):
-    ''' Output psuedo nc -zv strings '''
+    '''
+    Output strings and exit values close enough to perhaps work
+     with some bash scripts formally using "nc -x to test ports."
+    '''
     if sock_status == 0:
         service = get_port_service(port + "/tcp")
         print "Connection to " + host + " " + port \
